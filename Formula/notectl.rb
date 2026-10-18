@@ -5,24 +5,42 @@
 class Notectl < Formula
   desc "Notes from your terminal - write and read Obsidian vault notes"
   homepage "https://github.com/aeon022/notectl"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/aeon022/notectl/releases/download/v0.1.0/notectl_0.1.0_darwin_amd64.tar.gz"
-    sha256 "ba5b1b7172828e7e976a51df02155e4a2dd90319354a419736a78039fadd5607"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/aeon022/notectl/releases/download/v0.2.0/notectl_0.2.0_darwin_amd64.tar.gz"
+      sha256 "87ccbff04368b9d7ecf5cb475be08c6bdec482c48a5e02e9aba5ef84ef2c113a"
 
-    define_method(:install) do
-      bin.install "notectl"
+      define_method(:install) do
+        bin.install "notectl"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/aeon022/notectl/releases/download/v0.2.0/notectl_0.2.0_darwin_arm64.tar.gz"
+      sha256 "211068719fab7ececd7928868a7ea40f6e77de912eed46aa7fd5b3bbcb9fee4e"
+
+      define_method(:install) do
+        bin.install "notectl"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/aeon022/notectl/releases/download/v0.1.0/notectl_0.1.0_darwin_arm64.tar.gz"
-    sha256 "f51629a8677fad2cde75b1a24624684306f4427a4cc93d63f765fbeccd5d8861"
 
-    define_method(:install) do
-      bin.install "notectl"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/notectl/releases/download/v0.2.0/notectl_0.2.0_linux_amd64.tar.gz"
+      sha256 "410d7c7c27b4e1a6ee5e06f0d59ae7d73f4b73a704d077f95a96b915e3438a92"
+      define_method(:install) do
+        bin.install "notectl"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/notectl/releases/download/v0.2.0/notectl_0.2.0_linux_arm64.tar.gz"
+      sha256 "4f5c9bffa073aa863310dba0df9943cc46d5840af68a2512abf2962444d727e0"
+      define_method(:install) do
+        bin.install "notectl"
+      end
     end
   end
 
