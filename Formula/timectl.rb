@@ -5,24 +5,42 @@
 class Timectl < Formula
   desc "Terminal time tracker - start/stop timers, weekly breakdown, MCP server"
   homepage "https://github.com/aeon022/timectl"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/aeon022/timectl/releases/download/v0.1.0/timectl_0.1.0_darwin_amd64.tar.gz"
-    sha256 "70f9e42bc66b846dc6344dd10d0e0a465cf1ea3d4d04e5e192cb458938e7df7d"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/aeon022/timectl/releases/download/v0.2.0/timectl_0.2.0_darwin_amd64.tar.gz"
+      sha256 "434b63245672d7709211d2f5caeb0a2187f3ce17b562124447f69265c0836c79"
 
-    define_method(:install) do
-      bin.install "timectl"
+      define_method(:install) do
+        bin.install "timectl"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/aeon022/timectl/releases/download/v0.2.0/timectl_0.2.0_darwin_arm64.tar.gz"
+      sha256 "90862700133120207662710cdedc2c70047ccb4e214c4bf1ce0959e53894685a"
+
+      define_method(:install) do
+        bin.install "timectl"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/aeon022/timectl/releases/download/v0.1.0/timectl_0.1.0_darwin_arm64.tar.gz"
-    sha256 "1fcb1e852130e76c0e77bf338139c1f1ef65b9e8950663647408a5c1c04bd209"
 
-    define_method(:install) do
-      bin.install "timectl"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/timectl/releases/download/v0.2.0/timectl_0.2.0_linux_amd64.tar.gz"
+      sha256 "c7aa90e50ea06ea9f586818cb02ae51ffd1b18688c496bd85a9f7fec86717497"
+      define_method(:install) do
+        bin.install "timectl"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/timectl/releases/download/v0.2.0/timectl_0.2.0_linux_arm64.tar.gz"
+      sha256 "cc4e4abf0caaa78aac191a5c0349852c05cb7deb665c47581706fb0e0ce2bdcb"
+      define_method(:install) do
+        bin.install "timectl"
+      end
     end
   end
 
