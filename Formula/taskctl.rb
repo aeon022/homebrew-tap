@@ -5,24 +5,42 @@
 class Taskctl < Formula
   desc "Task management from your terminal - syncs with Apple Reminders"
   homepage "https://github.com/aeon022/taskctl"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/aeon022/taskctl/releases/download/v0.1.0/taskctl_0.1.0_darwin_amd64.tar.gz"
-    sha256 "8dffaf5f888b784e5477b3ca311475adee1e11aaee75b299058332e8e005a877"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/aeon022/taskctl/releases/download/v0.2.0/taskctl_0.2.0_darwin_amd64.tar.gz"
+      sha256 "dee45365423f60bd9c625628440e1ec6fa89c3be1256714b0e1cffffc6ffc71a"
 
-    define_method(:install) do
-      bin.install "taskctl"
+      define_method(:install) do
+        bin.install "taskctl"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/aeon022/taskctl/releases/download/v0.2.0/taskctl_0.2.0_darwin_arm64.tar.gz"
+      sha256 "051ab1ef3ae1177f63c7de16f4d2d036e3a2ae748ffecf749529a96eaafd6dad"
+
+      define_method(:install) do
+        bin.install "taskctl"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/aeon022/taskctl/releases/download/v0.1.0/taskctl_0.1.0_darwin_arm64.tar.gz"
-    sha256 "6ae5f283e91f37dab092161afa324dc083f9e9056e6194a9e251c190644a01b9"
 
-    define_method(:install) do
-      bin.install "taskctl"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/taskctl/releases/download/v0.2.0/taskctl_0.2.0_linux_amd64.tar.gz"
+      sha256 "da0c18300e6733635088164003c3d9a97820b61bc6a04c35cfb6eee18a1c47c6"
+      define_method(:install) do
+        bin.install "taskctl"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/taskctl/releases/download/v0.2.0/taskctl_0.2.0_linux_arm64.tar.gz"
+      sha256 "73ffc204c65a44056caa5d8c6dd632bcd44a227a572e70552f353ba3c3e38100"
+      define_method(:install) do
+        bin.install "taskctl"
+      end
     end
   end
 
