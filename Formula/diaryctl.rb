@@ -5,24 +5,42 @@
 class Diaryctl < Formula
   desc "Developer diary - reads git history, AI generates narrative entries"
   homepage "https://github.com/aeon022/diaryctl"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/aeon022/diaryctl/releases/download/v0.1.0/diaryctl_0.1.0_darwin_amd64.tar.gz"
-    sha256 "44605ca21e168c46139299b6b535bbecd8c48f68b0341f964694feb7b250d61d"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/aeon022/diaryctl/releases/download/v0.2.0/diaryctl_0.2.0_darwin_amd64.tar.gz"
+      sha256 "aa9100de47d12b38cbf25b5b0f38a926abd28222a7c158223fcc54219ff9c853"
 
-    define_method(:install) do
-      bin.install "diaryctl"
+      define_method(:install) do
+        bin.install "diaryctl"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/aeon022/diaryctl/releases/download/v0.2.0/diaryctl_0.2.0_darwin_arm64.tar.gz"
+      sha256 "4828ac4efd7c9246023a4d3ac28e7729a6dad8278ca69b95a6a7d989aabe1a72"
+
+      define_method(:install) do
+        bin.install "diaryctl"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/aeon022/diaryctl/releases/download/v0.1.0/diaryctl_0.1.0_darwin_arm64.tar.gz"
-    sha256 "7c1d96377611949a1273874b285a4d7ffbe365a688bffff32110ed67bbe29c86"
 
-    define_method(:install) do
-      bin.install "diaryctl"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/diaryctl/releases/download/v0.2.0/diaryctl_0.2.0_linux_amd64.tar.gz"
+      sha256 "c6cb26d6ef0770d4ed86da1472de2b990afa35bb0fc47eb98a77caa2a3c55ded"
+      define_method(:install) do
+        bin.install "diaryctl"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/diaryctl/releases/download/v0.2.0/diaryctl_0.2.0_linux_arm64.tar.gz"
+      sha256 "c6c38a4cb1ac9a8554c5d6d3ee88ed6fb0ec685633ccf7a8acb932252e9353bc"
+      define_method(:install) do
+        bin.install "diaryctl"
+      end
     end
   end
 
