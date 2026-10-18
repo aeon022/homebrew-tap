@@ -5,24 +5,42 @@
 class Calctl < Formula
   desc "Calendar management from your terminal - local-first CLI/TUI for Apple Calendar"
   homepage "https://github.com/aeon022/calctl"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/aeon022/calctl/releases/download/v0.1.0/calctl_0.1.0_darwin_amd64.tar.gz"
-    sha256 "b6c45198b56686f4793ff23314c25d95af94aaa61801e52efd502660f0461850"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/aeon022/calctl/releases/download/v0.2.0/calctl_0.2.0_darwin_amd64.tar.gz"
+      sha256 "77eed5b147d47c73530d31422a1ae780217ee93197255e89cbca0866ae2b0709"
 
-    define_method(:install) do
-      bin.install "calctl"
+      define_method(:install) do
+        bin.install "calctl"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/aeon022/calctl/releases/download/v0.2.0/calctl_0.2.0_darwin_arm64.tar.gz"
+      sha256 "c99b1dababcb2f3dc8824dfed5086549f67ca4042b8028ee8e1596060405d76c"
+
+      define_method(:install) do
+        bin.install "calctl"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/aeon022/calctl/releases/download/v0.1.0/calctl_0.1.0_darwin_arm64.tar.gz"
-    sha256 "762178a9835ad5e2d57a34b37565e0423da6ab50101acf0976c3bef9c612c160"
 
-    define_method(:install) do
-      bin.install "calctl"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/calctl/releases/download/v0.2.0/calctl_0.2.0_linux_amd64.tar.gz"
+      sha256 "52d9bf83dc793624be84b8162613df7ff669a32377de0f7354025967dfe3c6e1"
+      define_method(:install) do
+        bin.install "calctl"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/calctl/releases/download/v0.2.0/calctl_0.2.0_linux_arm64.tar.gz"
+      sha256 "c95143b15a30878e7861c400df78e6b26f6acd302a8ddb246be6275380dc322c"
+      define_method(:install) do
+        bin.install "calctl"
+      end
     end
   end
 
