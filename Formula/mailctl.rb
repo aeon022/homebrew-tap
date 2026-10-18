@@ -5,24 +5,42 @@
 class Mailctl < Formula
   desc "Email from your terminal - send and read email from Markdown files"
   homepage "https://github.com/aeon022/mailctl"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/aeon022/mailctl/releases/download/v0.1.0/mailctl_0.1.0_darwin_amd64.tar.gz"
-    sha256 "f091d9eb4abe2e20f7e1df0e36ce712b64ca560e65a456a51d594eaa4a21b2ed"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/aeon022/mailctl/releases/download/v0.2.0/mailctl_0.2.0_darwin_amd64.tar.gz"
+      sha256 "4e4b97aee3eaf0c76a1e395b6d1a736cb8a933ae53ca0c009c21515005f01514"
 
-    define_method(:install) do
-      bin.install "mailctl"
+      define_method(:install) do
+        bin.install "mailctl"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/aeon022/mailctl/releases/download/v0.2.0/mailctl_0.2.0_darwin_arm64.tar.gz"
+      sha256 "26ffab450ea7fef10911b9b50f4bcf16d8a8680c90177f50e79aa6b598635c28"
+
+      define_method(:install) do
+        bin.install "mailctl"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/aeon022/mailctl/releases/download/v0.1.0/mailctl_0.1.0_darwin_arm64.tar.gz"
-    sha256 "85c797993d1bd70754c6eccecea297fcf96306e289cc6bed93731a959187cdf2"
 
-    define_method(:install) do
-      bin.install "mailctl"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/mailctl/releases/download/v0.2.0/mailctl_0.2.0_linux_amd64.tar.gz"
+      sha256 "1ffdc813e071482d54f5c746487a2a390ba1596250199af63ada63d84a1cd1bc"
+      define_method(:install) do
+        bin.install "mailctl"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/mailctl/releases/download/v0.2.0/mailctl_0.2.0_linux_arm64.tar.gz"
+      sha256 "97e059cbfa5b458eb0997a573bf3ef7f5c0b10bf39ae5491f8a6228309346d95"
+      define_method(:install) do
+        bin.install "mailctl"
+      end
     end
   end
 
