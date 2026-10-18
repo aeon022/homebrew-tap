@@ -5,24 +5,42 @@
 class Budgetctl < Formula
   desc "Budget tracking from your terminal - import bank CSVs, analyze spending"
   homepage "https://github.com/aeon022/budgetctl"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/aeon022/budgetctl/releases/download/v0.1.0/budgetctl_0.1.0_darwin_amd64.tar.gz"
-    sha256 "42a1a1b37363fa70e1a6dbfe5aaafea663a234e04aacc107d07b9e6b09836f1e"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/aeon022/budgetctl/releases/download/v0.2.0/budgetctl_0.2.0_darwin_amd64.tar.gz"
+      sha256 "47d7bfa7a8960887aafcd16181eb807c85da66bfda1beb7f4da04b630afb694c"
 
-    define_method(:install) do
-      bin.install "budgetctl"
+      define_method(:install) do
+        bin.install "budgetctl"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/aeon022/budgetctl/releases/download/v0.2.0/budgetctl_0.2.0_darwin_arm64.tar.gz"
+      sha256 "e95d66d55948c707f3be97507e72f9a72bd338bf3cd189d16d21a51b6b18cc3e"
+
+      define_method(:install) do
+        bin.install "budgetctl"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/aeon022/budgetctl/releases/download/v0.1.0/budgetctl_0.1.0_darwin_arm64.tar.gz"
-    sha256 "e6db4bbacf744b85fbb138b7a7cef8e17ac12d6ac279a4b370f539220f397069"
 
-    define_method(:install) do
-      bin.install "budgetctl"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/budgetctl/releases/download/v0.2.0/budgetctl_0.2.0_linux_amd64.tar.gz"
+      sha256 "562a7841fd24c6d1a6195e4917f844139baf3dfc1314e1d215b86d5e1da47065"
+      define_method(:install) do
+        bin.install "budgetctl"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/budgetctl/releases/download/v0.2.0/budgetctl_0.2.0_linux_arm64.tar.gz"
+      sha256 "aab6e0bd96d54072456ca2394301902d698ecdad1439c4f1abc38674ee2f9d34"
+      define_method(:install) do
+        bin.install "budgetctl"
+      end
     end
   end
 
