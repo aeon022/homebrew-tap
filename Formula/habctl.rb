@@ -5,24 +5,42 @@
 class Habctl < Formula
   desc "Habit tracker for the terminal - streaks, AI coaching, MCP tools"
   homepage "https://github.com/aeon022/habctl"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/aeon022/habctl/releases/download/v0.1.0/habctl_0.1.0_darwin_amd64.tar.gz"
-    sha256 "93342e507f031c2f36008006394aed37ef416de9a42f0814215f9b46a3de10ba"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/aeon022/habctl/releases/download/v0.2.0/habctl_0.2.0_darwin_amd64.tar.gz"
+      sha256 "33d16e4be5c5eb7d1a122848e17c2574d5af72c69cd9f50654e1def3e279c5ae"
 
-    define_method(:install) do
-      bin.install "habctl"
+      define_method(:install) do
+        bin.install "habctl"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/aeon022/habctl/releases/download/v0.2.0/habctl_0.2.0_darwin_arm64.tar.gz"
+      sha256 "0d3a6e9921528c4838e9304f426913f862ac7968208c86b5927bc36b812594bd"
+
+      define_method(:install) do
+        bin.install "habctl"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/aeon022/habctl/releases/download/v0.1.0/habctl_0.1.0_darwin_arm64.tar.gz"
-    sha256 "3961cd7e46432ba7b16bc371cdfddf6134b08a8fbef70f494fac2731de58de80"
 
-    define_method(:install) do
-      bin.install "habctl"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/habctl/releases/download/v0.2.0/habctl_0.2.0_linux_amd64.tar.gz"
+      sha256 "e7abea16708b6227ae70bd48d845486997596df9c7f2e4e56af50693ea3dc576"
+      define_method(:install) do
+        bin.install "habctl"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/aeon022/habctl/releases/download/v0.2.0/habctl_0.2.0_linux_arm64.tar.gz"
+      sha256 "2701aaa3511c55a49c9dfcb26d899bf6588c736cda3d028f89846b03b0989b76"
+      define_method(:install) do
+        bin.install "habctl"
+      end
     end
   end
 
